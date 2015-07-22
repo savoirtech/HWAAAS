@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-class=com.savoirtech.ibexcl.component.OpenCLComponent
+class=com.savoirtech.opencl.component.OpenCLComponent

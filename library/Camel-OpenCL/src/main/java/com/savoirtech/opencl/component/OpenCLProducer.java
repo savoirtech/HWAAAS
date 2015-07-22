@@ -8,6 +8,10 @@ import com.nativelibs4java.opencl.*;
 import com.nativelibs4java.opencl.CLMem.Usage;
 import com.nativelibs4java.util.*;
 import org.bridj.Pointer;
+
+import javax.xml.bind.DatatypeConverter;
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.nio.ByteOrder;
 import static org.bridj.Pointer.*;
 import static java.lang.Math.*;
@@ -36,10 +40,10 @@ public class OpenCLProducer extends DefaultProducer {
     public void process(Exchange exchange) throws Exception {
         LOG.info("DataSet: " + exchange.getIn().getBody());
 
-        String dataSet = exchange.getIn().getBody().toString();
+        String message = exchange.getIn().getBody().toString();
         String result = null;
         try {
-            result = gpuMagic(dataSet);
+            result = gpuMagic(message);
         } catch (IOException ioe) {
             LOG.error(ioe.getMessage());
         }
@@ -47,11 +51,10 @@ public class OpenCLProducer extends DefaultProducer {
         LOG.info("Result Set: " + exchange.getIn().getBody());
     }
 
-    private String gpuMagic(String dataSet) throws IOException {
+    private String gpuMagic(String message) throws IOException {
         CLPlatform[] devices = JavaCL.listGPUPoweredPlatforms();
-        LOG.info("Working on DataSet: " + dataSet);
+        LOG.info("Working on DataSet: " + message);
 
-        //CLContext context = JavaCL.createBestContext();
         CLContext context;
         if (useGPU) {
             context = JavaCL.createBestContext(CLPlatform.DeviceFeature.GPU);
@@ -64,26 +67,7 @@ public class OpenCLProducer extends DefaultProducer {
         CLQueue queue = context.createDefaultQueue();
         ByteOrder byteOrder = context.getByteOrder();
 
-        //************
-        int n = 1024;
-        Pointer<Float>
-            aPtr = allocateFloats(n).order(byteOrder),
-            bPtr = allocateFloats(n).order(byteOrder);
-
-        for (int i = 0; i < n; i++) {
-            aPtr.set(i, (float)cos(i));
-            bPtr.set(i, (float)sin(i));
-        }
-
-        // Create OpenCL input buffers (using the native memory pointers aPtr and bPtr) :
-        CLBuffer<Float>
-            a = context.createFloatBuffer(Usage.Input, aPtr),
-            b = context.createFloatBuffer(Usage.Input, bPtr);
-
-        // Create an OpenCL output buffer :
-        CLBuffer<Float> out = context.createFloatBuffer(Usage.Output, n);
-
-        //**************
+        OpenCLDataSet dataSet = OpenCLDataSetParser.Parse(message, context, byteOrder);
 
         // Read the program sources and compile them :
         String src = IOUtils.readText(new File(kernel));
@@ -92,11 +76,11 @@ public class OpenCLProducer extends DefaultProducer {
         // Get and call the kernel :
         CLKernel userKernel = program.createKernel(kernelTarget);
 
-        userKernel.setArgs(a, b, out, n);
-        int[] globalSizes = new int[] { n };
+        userKernel.setArgs(dataSet.getArgs());
+        int[] globalSizes = new int[] { dataSet.getGlobalSize() };
         CLEvent addEvt = userKernel.enqueueNDRange(queue, globalSizes);
 
-        Pointer<Float> outPtr = out.read(queue, addEvt); // blocks until kernelTarget finished
+        Pointer<Float> outPtr = dataSet.getOut().read(queue, addEvt); // blocks until kernelTarget finished
 
         String result = "";
 
