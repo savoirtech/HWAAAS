@@ -15,6 +15,7 @@
 
     <modules>
         <module>Camel-OpenCL</module>
+        <module>Camel-OpenCLProcessor</module>
   </modules>
 
 </project>

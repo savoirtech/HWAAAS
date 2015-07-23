@@ -34,6 +34,7 @@ public class OpenCLDataSetParser {
     public static OpenCLDataSet Parse(String message, CLContext context, ByteOrder byteOrder) {
 
         int n = 1024;
+
         Pointer<Float>
                 aPtr = allocateFloats(n).order(byteOrder),
                 bPtr = allocateFloats(n).order(byteOrder);
