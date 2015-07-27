@@ -14,7 +14,9 @@ Hardware Acceleration As A Service
 
  feature:repo-add mvn:com.savoirtech.opencl.feature/opencl-feature/0.0.1-SNAPSHOT/xml/features
  
- install -s mvn:javax.xml/jaxb-impl/2.1
+ install -s wrap:mvn:javax.xml/jaxb-impl/2.2.11
+ 
+ install -s wrap:mvn:javax.xml/jaxb-core/2.2.11
  
  feature:repo-add mvn:org.apache.camel.karaf/apache-camel/2.15.2/xml/features
  
