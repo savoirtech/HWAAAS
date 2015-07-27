@@ -1,21 +1,23 @@
 package com.savoirtech.opencl.component;
 
-import java.util.Date;
-
+import com.nativelibs4java.opencl.*;
+import com.nativelibs4java.opencl.CLMem.Usage;
+import com.nativelibs4java.util.IOUtils;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.impl.ScheduledPollConsumer;
+import org.bridj.Pointer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.nativelibs4java.opencl.*;
-import com.nativelibs4java.opencl.CLMem.Usage;
-import com.nativelibs4java.util.*;
-import org.bridj.Pointer;
-import java.nio.ByteOrder;
-import static org.bridj.Pointer.*;
-import static java.lang.Math.*;
-import java.io.IOException;
+
 import java.io.File;
+import java.io.IOException;
+import java.nio.ByteOrder;
+import java.util.Date;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static org.bridj.Pointer.allocateFloats;
 
 /**
  * The OpenCL consumer.

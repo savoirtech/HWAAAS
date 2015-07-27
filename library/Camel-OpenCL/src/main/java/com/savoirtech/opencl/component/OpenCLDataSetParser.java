@@ -4,13 +4,13 @@ import com.nativelibs4java.opencl.CLBuffer;
 import com.nativelibs4java.opencl.CLContext;
 import com.nativelibs4java.opencl.CLMem;
 import org.bridj.Pointer;
-import static org.bridj.Pointer.*;
-
-import static java.lang.Math.*;
 
 import java.nio.ByteOrder;
 import java.util.ArrayList;
-import java.util.Objects;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static org.bridj.Pointer.allocateFloats;
 
 /**
  * Created by jgoodyear on 2015-07-21.

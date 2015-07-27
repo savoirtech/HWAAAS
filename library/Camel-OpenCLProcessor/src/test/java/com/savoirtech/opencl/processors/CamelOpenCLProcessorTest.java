@@ -13,11 +13,9 @@ public class CamelOpenCLProcessorTest extends CamelBlueprintTestSupport {
 
     @Test
     public void testRoute() throws Exception {
-        // the route is timer based, so every 5th second a message is send
-        // we should then expect at least one message
         getMockEndpoint("mock:result").expectedMinimumMessageCount(1);
 
-        template.sendBody("direct:start", "12345");
+        template.sendBody("direct:start", "10240");
         // assert expectations
         assertMockEndpointsSatisfied();
     }

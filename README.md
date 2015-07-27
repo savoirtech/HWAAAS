@@ -12,6 +12,13 @@ Hardware Acceleration As A Service
 
  Deploy Instructions:
 
- feature:add-url file:/Path/to/opencl/feature/target/classes/feature.xml
- feature:install javacl-osgi
- feature:install opencl-commands
+ feature:repo-add file:/Path/to/opencl/feature/target/classes/feature.xml
+ install -s mvn:org.fusesource.jansi/jansi/1.8
+ install -s mvn:jline/jline/2.12.1
+ install -s mvn:javax.xml/jaxb-impl/2.1
+ feature:repo-add mvn:org.apache.camel.karaf/apache-camel/2.15.2/xml/features
+ feature:install camel camel-blueprint
+ feature:install opencl-feature
+
+
+ Note: This project contains libraries from JavaCL Project. See https://code.google.com/p/javacl/ for more details.

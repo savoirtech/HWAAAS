@@ -1,22 +1,21 @@
 package com.savoirtech.opencl.processors;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import com.nativelibs4java.opencl.*;
 import com.nativelibs4java.opencl.CLMem.Usage;
-import com.nativelibs4java.opencl.util.*;
-import com.nativelibs4java.util.*;
+import com.nativelibs4java.opencl.*;
+import com.nativelibs4java.util.IOUtils;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.bridj.Pointer;
-import java.nio.ByteOrder;
-import static org.bridj.Pointer.*;
-import static java.lang.Math.*;
-import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.camel.Processor;
-import org.apache.camel.Exchange;
+import java.io.IOException;
+import java.nio.ByteOrder;
+import java.util.Iterator;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static org.bridj.Pointer.*;
 
 
 public class CamelOpenCLProcessor implements Processor {
@@ -45,7 +44,7 @@ public class CamelOpenCLProcessor implements Processor {
         CLQueue queue = context.createDefaultQueue();
         ByteOrder byteOrder = context.getByteOrder();
 
-        int n = 1024;
+        int n = Integer.parseInt(message.trim());
         Pointer<Float>
                 aPtr = allocateFloats(n).order(byteOrder),
                 bPtr = allocateFloats(n).order(byteOrder);
@@ -77,10 +76,9 @@ public class CamelOpenCLProcessor implements Processor {
 
         String result = "";
 
-        // Print the first 10 output values :
-        for (int i = 0; i < 10 && i < n; i++) {
-            System.out.println("out[" + i + "] = " + outPtr.get(i));
-            result += " " + outPtr.get(i);
+        Iterator it = outPtr.iterator();
+        while (it.hasNext()) {
+            result += it.next() + " ";
         }
 
         return result;
