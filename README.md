@@ -12,7 +12,7 @@ Hardware Acceleration As A Service
 
  Deploy Instructions:
 
- feature:repo-add file:/Path/to/opencl/feature/target/classes/feature.xml
+ feature:repo-add mvn:com.savoirtech.opencl.feature/opencl-feature/0.0.1-SNAPSHOT/xml/features
  
  install -s mvn:javax.xml/jaxb-impl/2.1
  
