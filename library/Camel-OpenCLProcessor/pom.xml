@@ -111,8 +111,10 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>Camel-OpenCLProcessor</Bundle-SymbolicName>
-            <Private-Package>com.savoir.*</Private-Package>
-            <Import-Package>*,org.apache.camel.osgi</Import-Package>
+            <Private-Package>com.savoirtech.*,com.nativelibs4java.opencl.*</Private-Package>
+            <Import-Package>*,
+              org.apache.camel.osgi
+            </Import-Package>
           </instructions>
         </configuration>
       </plugin>

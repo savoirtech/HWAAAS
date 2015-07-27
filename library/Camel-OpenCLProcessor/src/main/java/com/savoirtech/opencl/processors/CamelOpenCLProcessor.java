@@ -1,7 +1,7 @@
 package com.savoirtech.opencl.processors;
 
-import com.nativelibs4java.opencl.CLMem.Usage;
 import com.nativelibs4java.opencl.*;
+import com.nativelibs4java.opencl.CLMem.Usage;
 import com.nativelibs4java.util.IOUtils;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -15,7 +15,7 @@ import java.util.Iterator;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
-import static org.bridj.Pointer.*;
+import static org.bridj.Pointer.allocateFloats;
 
 
 public class CamelOpenCLProcessor implements Processor {

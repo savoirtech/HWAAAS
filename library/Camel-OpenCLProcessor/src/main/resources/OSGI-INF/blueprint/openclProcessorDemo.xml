@@ -12,11 +12,20 @@
     <bean id="CamelOpenclProcessor" class="com.savoirtech.opencl.processors.CamelOpenCLProcessor">
     </bean>
 
-    <camelContext id="blueprintContext" trace="false" xmlns="http://camel.apache.org/schema/blueprint">
+    <bean id="InputProcessor" class="com.savoirtech.opencl.processors.InputProcessor"/>
+
+    <camelContext id="blueprintContext" xmlns="http://camel.apache.org/schema/blueprint">
         <route id="OpenCLDemo">
             <from uri="direct:start"/>
             <bean ref="CamelOpenclProcessor" />
             <to uri="mock:result"/>
+        </route>
+
+
+        <route id="kickStart">
+            <from uri="file:input"/>
+            <bean ref="InputProcessor"/>
+            <to uri="direct:start"/>
         </route>
     </camelContext>
 

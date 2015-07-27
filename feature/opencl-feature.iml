@@ -18,6 +18,11 @@
     <orderEntry type="library" name="Maven: org.apache.mina:mina-core:2.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.apache.karaf:org.apache.karaf.util:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.felix:org.apache.felix.utils:1.6.0" level="project" />
+    <orderEntry type="module" module-name="Camel-OpenCLProcessor" />
+    <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.15.2" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-core:2.2.11" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
     <orderEntry type="library" name="Maven: com.nativelibs4java:javacl:1.0.0-RC4" level="project" />
     <orderEntry type="library" name="Maven: com.nativelibs4java:javacl-core:1.0.0-RC4" level="project" />
     <orderEntry type="library" name="Maven: com.nativelibs4java:opencl4java:1.0.0-RC4" level="project" />
@@ -25,7 +30,6 @@
     <orderEntry type="library" name="Maven: com.google.android.tools:dx:1.7" level="project" />
     <orderEntry type="library" name="Maven: com.nativelibs4java:nativelibs4java-utils:1.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.0" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.14" level="project" />
   </component>
 </module>
