@@ -8,6 +8,7 @@ import org.apache.camel.Processor;
 import org.bridj.Pointer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.nio.ByteOrder;
@@ -66,6 +67,8 @@ public class CamelOpenCLProcessor implements Processor {
         String src = IOUtils.readText(CamelOpenCLProcessor.class.getResource("Kernel.cl"));
         CLProgram program = context.createProgram(src);
 
+        Long time1 = System.currentTimeMillis();
+
         // Get and call the kernel :
         CLKernel addFloatsKernel = program.createKernel("add_floats");
         addFloatsKernel.setArgs(a, b, out, n);
@@ -73,6 +76,10 @@ public class CamelOpenCLProcessor implements Processor {
         CLEvent addEvt = addFloatsKernel.enqueueNDRange(queue, globalSizes);
 
         Pointer<Float> outPtr = out.read(queue, addEvt); // blocks until add_floats finished
+
+        Long time2 = System.currentTimeMillis();
+
+        LOG.info("Message took: " + (time2 - time1) + " MilliSeconds");
 
         String result = "";
 
